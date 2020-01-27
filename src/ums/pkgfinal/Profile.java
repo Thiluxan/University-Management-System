@@ -33,9 +33,9 @@ public class Profile extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"SENG 1111", null},
-                {"SENG 1112", null},
-                {"SENG 1113", null}
+                {"SENG 1111", false},
+                {"SENG 1112", false},
+                {"SENG 1113", false}
             },
             new String [] {
                 "Subject", "Enroll"
@@ -45,7 +45,7 @@ public class Profile extends javax.swing.JFrame {
                 java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -156,11 +156,11 @@ public class Profile extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String c[];
-        boolean[] result = new boolean[jTable1.getRowCount()];
+
+        
         for(int i=0; i<jTable1.getRowCount();i++){
-            result[i] = (boolean)jTable1.getValueAt(i,1);
-            if(result[i]){
+            boolean checked = (boolean)jTable1.getValueAt(i,1);
+            if(checked){
                 c[i] = "|/";
             }
             else{
@@ -171,17 +171,17 @@ public class Profile extends javax.swing.JFrame {
         }
         try{
           Class.forName("com.mysql.jdbc.Driver");
-          Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase","root","Luxan@22");
-          Statement st = con.createStatement();
-          try (PreparedStatment sts = con.prepareStatement("UPDATE course_register set(seng1111 = ?,seng1112= = ?,seng1113 = ?) WHERE username = ?")){
-              sts.setString(1,c[0]);
-              sts.setString(2,c[1]);
-              sts.setString(3,c[2]);
-              sts.setSttring(4,user);
-              sts.executeUpdate();
+          try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase","root","Luxan@22")){
+              Statement st = con.createStatement();
+              try (PreparedStatement sts = con.prepareStatement("UPDATE course_register set(seng1111 = ?,seng1112= = ?,seng1113 = ?) WHERE username = ?")){
+                  sts.setString(1,c[0]);
+                  sts.setString(2,c[1]);
+                  sts.setString(3,c[2]);
+                  sts.setString(4,user);
+                  sts.executeUpdate();
+                  sts.close();
+              }
           }
-          sts.close();
-          con.close();
           
        }
        catch(Exception e){
@@ -190,10 +190,9 @@ public class Profile extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+
     public String user;
+    String c[] = new String[4];
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
