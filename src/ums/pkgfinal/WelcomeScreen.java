@@ -159,6 +159,7 @@ public class WelcomeScreen extends javax.swing.JFrame{
                                 JOptionPane.showMessageDialog(null, "You are successfully logged in");
                                 jTextField1.setText("");
                                 jPasswordField2.setText("");
+                                this.setVisible(false);
                                 Profile pf = new Profile();
                                 pf.setVisible(true);
                                 pf.jLabel4.setText(u1);
@@ -217,6 +218,7 @@ public class WelcomeScreen extends javax.swing.JFrame{
                             JOptionPane.showMessageDialog(null,"You are Successfully registered");
                             sts.close();
                         }
+                        this.setVisible(false);
                         Profile pf = new Profile();
                         pf.setVisible(true);
                         pf.jLabel4.setText(u2);
